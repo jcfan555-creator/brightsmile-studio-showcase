@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function BeforeAfter() {
   const [index, setIndex] = useState(0);
-  const active = beforeAfter[index];
+  const active = beforeAfter[index] ?? beforeAfter[0]!;
 
   return (
     <section className="section bg-background">
