@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -16,12 +16,22 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        hero: "rounded-full bg-navy text-primary-foreground shadow-soft hover:bg-navy-soft hover:-translate-y-0.5 hover:shadow-lift",
+        teal: "rounded-full bg-teal text-accent-foreground shadow-soft hover:brightness-105 hover:-translate-y-0.5 hover:shadow-lift",
+        quiet:
+          "rounded-full border border-border bg-card text-foreground shadow-soft hover:border-teal hover:text-teal hover:-translate-y-0.5",
+        onNavy:
+          "rounded-full bg-background text-navy shadow-soft hover:bg-gold-soft hover:-translate-y-0.5",
+        outlineNavy:
+          "rounded-full border border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/10 hover:-translate-y-0.5",
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
+        pill: "h-11 px-6",
+        xl: "h-13 px-8 text-base",
       },
     },
     defaultVariants: {
