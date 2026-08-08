@@ -26,10 +26,7 @@ export function ContactSection() {
 
   const set = (k: "name"|"email"|"phone"|"reason"|"message", v: string) => {
     setValues((p) => ({ ...p, [k]: v }));
-    setErrors((e) => {
-      const { [k]: _drop, ...rest } = e;
-      return rest;
-    });
+    setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
   const onSubmit = (e: FormEvent) => {
