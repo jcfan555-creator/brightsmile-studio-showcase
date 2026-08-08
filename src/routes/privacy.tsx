@@ -20,7 +20,7 @@ const sections = [
   { h: "Demo notice", p: "This website is a fictional portfolio demo. Forms are simulated in the browser and no personal information is transmitted, processed or stored." },
   { h: "Information we would collect", p: "In a live practice, a booking form would collect your name, contact details, preferred appointment time and any notes you choose to share." },
   { h: "How it would be used", p: "Solely to contact you about your appointment enquiry and to keep an accurate clinical record. It would never be sold." },
-  { h: "Contact", p: "Questions about privacy would be directed to the practice manager at the studio"s published contact details." },
+  { h: "Contact", p: "Questions about privacy would be directed to the practice manager at the studio's published contact details." },
 ];
 
 function PrivacyPage() {

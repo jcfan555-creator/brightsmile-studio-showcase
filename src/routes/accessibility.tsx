@@ -18,7 +18,7 @@ export const Route = createFileRoute("/accessibility")({
 
 const sections = [
   { h: "Our commitment", p: "This demo site aims to meet WCAG 2.1 AA principles: sufficient colour contrast, keyboard-operable navigation and clear focus states." },
-  { h: "What we"ve done", p: "Semantic headings, descriptive alt text, labelled form fields, visible focus rings, large touch targets and reduced-motion support." },
+  { h: "What we've done", p: "Semantic headings, descriptive alt text, labelled form fields, visible focus rings, large touch targets and reduced-motion support." },
   { h: "In the clinic", p: "A live practice page would describe step-free access, accessible restrooms and support for patients with additional needs." },
   { h: "Feedback", p: "Accessibility issues would be reported to the practice by phone or email so they can be addressed promptly." },
 ];
