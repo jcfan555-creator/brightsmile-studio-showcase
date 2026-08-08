@@ -21,10 +21,10 @@ const fieldClass = "h-11 rounded-xl border-input bg-card focus-visible:ring-2 fo
 
 export function ContactSection() {
   const [values, setValues] = useState({ name: "", email: "", phone: "", reason: "", message: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"name"|"email"|"reason"|"message", string>>>({});
   const [sent, setSent] = useState(false);
 
-  const set = (k: string, v: string) => {
+  const set = (k: "name"|"email"|"phone"|"reason"|"message", v: string) => {
     setValues((p) => ({ ...p, [k]: v }));
     setErrors((e) => {
       const { [k]: _drop, ...rest } = e;
@@ -34,7 +34,7 @@ export function ContactSection() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const next: Record<string, string> = {};
+    const next: Partial<Record<"name"|"email"|"reason"|"message", string>> = {};
     if (values.name.trim().length < 2) next.name = "Please enter your name.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) next.email = "Enter a valid email address.";
     if (!values.reason) next.reason = "Choose a reason for contacting us.";
