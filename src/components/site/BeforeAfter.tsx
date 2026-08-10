@@ -1,14 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SectionHeading, DemoNote } from "./SectionHeading";
 import { Reveal } from "./Reveal";
-import { beforeAfter } from "@/data/clinic";
-import before from "@/assets/smile-before.jpg";
-import after from "@/assets/smile-after.jpg";
+import { cosmeticResults } from "@/data/cosmeticResults";
 import { cn } from "@/lib/utils";
+
+function CaseImage({
+  label,
+  src,
+  alt,
+}: {
+  label: string;
+  src: string;
+  alt: string;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    setFailed(false);
+  }, [src]);
+
+  return (
+    <figure className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+      {failed ? (
+        <div className="flex aspect-[4/3] w-full items-center justify-center bg-secondary/60 px-6 text-center text-sm text-muted-foreground">
+          Demo image unavailable
+        </div>
+      ) : (
+        <img
+          key={src}
+          src={src}
+          alt={alt}
+          width={1024}
+          height={768}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="aspect-[4/3] w-full animate-in fade-in object-cover duration-300 transition-transform group-hover:scale-[1.03]"
+        />
+      )}
+      <figcaption className="absolute left-4 top-4 rounded-full bg-navy/85 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-foreground">
+        {label}
+      </figcaption>
+    </figure>
+  );
+}
 
 export function BeforeAfter() {
   const [index, setIndex] = useState(0);
-  const active = beforeAfter[index] ?? beforeAfter[0]!;
+  const active = cosmeticResults[index] ?? cosmeticResults[0]!;
 
   return (
     <section className="section bg-background">
@@ -19,15 +57,19 @@ export function BeforeAfter() {
           intro="Select a treatment type to view an illustrative before and after pair."
         />
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {beforeAfter.map((c, i) => (
+        <div role="tablist" aria-label="Cosmetic treatment results" className="mt-8 flex flex-wrap gap-2">
+          {cosmeticResults.map((c, i) => (
             <button
-              key={c.title}
+              key={c.id}
               type="button"
+              role="tab"
+              id={`ba-tab-${c.id}`}
+              aria-selected={i === index}
+              aria-controls="ba-panel"
+              aria-label={`Show ${c.title} before and after result`}
               onClick={() => setIndex(i)}
-              aria-pressed={i === index}
               className={cn(
-                "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-all",
+                "cursor-pointer rounded-full border px-4 py-2.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 i === index
                   ? "border-navy bg-navy text-primary-foreground shadow-soft"
                   : "border-border bg-card text-foreground hover:border-teal hover:text-teal",
@@ -39,36 +81,23 @@ export function BeforeAfter() {
         </div>
 
         <Reveal className="mt-8">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              { label: "Before", src: before, alt: `Illustrative before image for a ${active.title.toLowerCase()} demo case` },
-              { label: "After", src: after, alt: `Illustrative after image for a ${active.title.toLowerCase()} demo case` },
-            ].map((img) => (
-              <figure
-                key={img.label}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft"
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  width={816}
-                  height={816}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <figcaption className="absolute left-4 top-4 rounded-full bg-navy/85 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-foreground">
-                  {img.label}
-                </figcaption>
-              </figure>
-            ))}
+          <div
+            id="ba-panel"
+            role="tabpanel"
+            aria-labelledby={`ba-tab-${active.id}`}
+            className="grid gap-4 sm:grid-cols-2"
+          >
+            <CaseImage label="Before" src={active.beforeSrc} alt={active.beforeAlt} />
+            <CaseImage label="After" src={active.afterSrc} alt={active.afterAlt} />
           </div>
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-secondary/60 px-5 py-4">
             <div>
               <p className="text-sm font-semibold text-navy">{active.title}</p>
-              <p className="text-sm text-muted-foreground">{active.detail}</p>
+              <p className="text-sm text-muted-foreground">{active.description}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{active.caption}</p>
             </div>
             <span className="rounded-full bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-              {active.note}
+              Illustrative demo case — not a real patient
             </span>
           </div>
         </Reveal>
