@@ -1,0 +1,7 @@
+# Nitro's `netlify` preset (auto-detected during a Netlify build) emits the
+# client assets, `_redirects` and `_headers` into `dist/`, and the SSR server
+# handler into `.netlify/functions-internal/`. The `dist/client` layout only
+# applies to the Lovable sandbox, which builds with the Cloudflare preset.
+[build]
+  command = "bun run build"
+  publish = "dist"
